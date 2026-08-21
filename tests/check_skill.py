@@ -17,8 +17,9 @@ README_PATH = ROOT / "README.md"
 OPENING_TEMPLATE = (
     "I'll pressure-test this plan with you so the weak joints show up before "
     "they cost you — not to catch you out. Being examined is a common side "
-    "effect; that isn't the job. Skip a question, slow to one at a time, or "
-    "throw out my recommended answers; those are bets, not verdicts. Your call."
+    "effect; that isn't the job. Skip a question, ask a batch, or throw out "
+    "my recommended answers; those are bets, not verdicts. Default is one "
+    "question. Your call."
 )
 
 APPRAISAL = "If this call turns out wrong, what is the costly part?"
@@ -93,8 +94,27 @@ def main() -> int:
     check("mechanics: design tree", "design tree" in body_l)
     check("mechanics: frontier", "frontier" in body_l)
     check("mechanics: recommended answers", "recommended answer" in body_l)
-    check("mechanics: ❓", "❓" in body)
+    check("mechanics: card heading ### Q", "### Q" in body)
     check("mechanics: ➡️", "➡️" in body)
+    check(
+        "mechanics: default one card/one question",
+        "default" in body_l
+        and ("one card" in body_l or "one question" in body_l),
+    )
+    check(
+        "mechanics: batch at most 3",
+        "batch" in body_l and "at most 3" in body_l,
+    )
+    check("mechanics: 一批 or batch", "一批" in body and "batch" in body_l)
+    check("mechanics: persist", "persist" in body_l)
+    check("mechanics: most unblock", "most unblock" in body_l)
+    check(
+        "mechanics: body allow/ban decision/options vs background/recap",
+        "decision" in body_l
+        and "option" in body_l
+        and "background" in body_l
+        and "recap" in body_l,
+    )
     check(
         "mechanics: facts are the agent's job",
         "facts" in body_l
@@ -139,9 +159,9 @@ def main() -> int:
         and "non-deferred" in body_l,
     )
     check(
-        "intensity one-at-a-time",
-        ("one-at-a-time" in body_l or "one at a time" in body_l)
-        and ("cadence" in body_l or "escape hatch" in body_l),
+        "intensity default one-card cadence",
+        "cadence" in body_l
+        and ("one card" in body_l or "one question" in body_l),
     )
     check("close is a decision log", "decision log" in body_l)
     check(
@@ -277,6 +297,8 @@ def main() -> int:
                 [
                     "powershell",
                     "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
                     "-File",
                     str(ps1_path),
                     "grok",

@@ -37,10 +37,16 @@ Call **gentle-grill-me** when you want a pressure test and you do not want to be
 
 Call original **grilling** when you want the relentless wording, or when you only say `grill me`.
 
-A round looks like this — whole frontier, one recommended answer each, then it waits:
+A round looks like this — default one card, then it waits:
 
 ```text
-❓ **Q1** - **Cost of being wrong**: If this call turns out wrong, what is the costly part?
+### Q1 · Cost of being wrong
+If this call turns out wrong, what is the costly part?
+- time
+- money
+- reputation
+- having to reverse something already said
+- low-stakes — skip this
 ➡️ My bet: reputation. Reject if it doesn't fit.
 ```
 
@@ -53,9 +59,9 @@ Skip is allowed. Skip parks the node; it does not delete it.
 | Product | `grilling` / `grill-me` | `gentle-grill-me` |
 | Triggers | Grill-family phrases, including bare `grill me` | `gentle grill me`, `溫柔 grill`, `幫我溫柔地壓力測試`, `/gentle-grill-me` only |
 | Coexistence | Unchanged | Coexists; does not steal bare `grill me` |
-| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Same Mechanics, copied almost verbatim |
+| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Design tree, ### Q heading plus list, ➡️, default one card per round, batch (一批 / batch) opt-in at most 3, persist until 一張 / one, most-unblock selection, agent finds facts, no action before confirmation |
 | Stance | None | Opening, appraisal, silent calibration, wording contract on questions and recommended answers, skip as deferred, intensity as cadence only, premortem, decision-log close |
-| Default cadence | Whole frontier per round | Same. One-at-a-time is an escape hatch only |
+| Default cadence | Whole frontier per round | One card per round. Batch (一批 / batch) opt-in at most 3; persists until 一張 / one |
 | Intensity | Relentless wording allowed | Changes cadence only. Raising intensity does not restore competence-threatening wording |
 | Skip | Unspecified | Explicitly deferred; stays on the frontier; listed as an open assumption at close; do not drop skipped nodes to close |
 | Close | Empty frontier, then confirmation | Decision log (settled, deferred, open assumptions, rejected bets), then confirmation |
@@ -92,7 +98,7 @@ Installing this skill does not replace original `grilling`.
 
 ## How it works
 
-**Mechanics** are the inherited grilling protocol. They are not paper-derived. The agent maps the work as a design tree, asks every frontier question in a round with a recommended answer (`❓` / `➡️`), finds facts itself, and does not act until the user confirms shared understanding.
+**Mechanics** are the grilling design tree. They are not paper-derived. Cadence and card shape differ from original grilling: default one card per round (`### Q` heading plus list, `➡️`), batch at most 3 of the most-unblocking frontier, facts found without dumping leftover frontier, and no action until the user confirms shared understanding.
 
 **Stance** is the overlay in `SKILL.md` after Mechanics: how the agent opens, appraises stakes, calibrates silently, words questions and recommended answers (meanings, paraphrases, and equivalents in the user's language), treats skip, changes intensity, runs a premortem, and closes. Stance does not drop recommended answers and does not shrink tree coverage.
 
@@ -110,7 +116,7 @@ Named contacts can also send feedback directly. There is no session quota and no
 | --- | --- |
 | Opening rationale; not to catch the user out; wording bans on controlling language | Brehm, 1966; Dillard & Shen, 2005 |
 | Acknowledgment that being examined is a side effect | Deci, Eghrari, Patrick, & Leone, 1994; Miller, Lane, Deatrick, Young, & Potts, 2007 |
-| Choice/restoration: skip, slow, throw out recommended answers; those are bets | Ryan & Deci, 2000; Miller & Rollnick (E-P-E shape and autonomy only, not as therapy) |
+| Choice/restoration: skip, ask a batch, throw out recommended answers; default is one question | Ryan & Deci, 2000; Miller & Rollnick (E-P-E shape and autonomy only, not as therapy) |
 | Critique the plan not the person; raising intensity must not restore competence-threatening wording | Kluger & DeNisi, 1996 |
 | Treat the user's current choice as a live hypothesis | Argyris & Schön, 1974/1996 |
 | Later answer contradicts a settled node: one frontier question, do not keep both | Argyris & Schön, 1974/1996 |
