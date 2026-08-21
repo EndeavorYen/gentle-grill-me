@@ -183,7 +183,8 @@ def main() -> int:
     check(
         "README literature claim is a design mapping",
         "design mapping" in readme_text.lower()
-        and "not an empirical study" in readme_text.lower(),
+        and "not an empirical study" in readme_text.lower()
+        and "**psychology**" in readme_text,
     )
     check(
         "README when to call this vs grilling",

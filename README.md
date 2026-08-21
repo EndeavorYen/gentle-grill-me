@@ -6,7 +6,7 @@ This skill walks a design tree with you until nothing important is silently assu
 
 Works as a Grok skill. The same `SKILL.md` copies onto Claude and Cursor.
 
-Stance rules map to specific psychology papers in the table below. That is a design mapping, not an empirical study of this skill.
+The stance is designed from **psychology** — psychological reactance, autonomy support, premortem / prospective hindsight, and task-focused feedback — then mapped into executable rules. See the [rule-to-citation mapping](#rule-to-citation-mapping). That is a design mapping, not an empirical study of this skill.
 
 ## Quick start
 
