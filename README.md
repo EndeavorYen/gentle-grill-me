@@ -37,7 +37,7 @@ Call **gentle-grill-me** when you want a pressure test and you do not want to be
 
 Call original **grilling** when you want the relentless wording, or when you only say `grill me`.
 
-A round looks like this — default one card, then it waits:
+A round looks like this — default one card, then it waits. On Grok and Claude the options are a selectable question card, not transcript bullets.
 
 ```text
 ### Q1 · Cost of being wrong
@@ -59,7 +59,7 @@ Skip is allowed. Skip parks the node; it does not delete it.
 | Product | `grilling` / `grill-me` | `gentle-grill-me` |
 | Triggers | Grill-family phrases, including bare `grill me` | `gentle grill me`, `溫柔 grill`, `幫我溫柔地壓力測試`, `/gentle-grill-me` only |
 | Coexistence | Unchanged | Coexists; does not steal bare `grill me` |
-| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Design tree, ### Q heading plus list, ➡️, default one card per round, batch (一批 / batch) opt-in at most 3, persist until 一張 / one, most-unblock selection, agent finds facts, no action before confirmation |
+| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Design tree, host question card with options (markdown ### Q list fallback), ➡️, default one card per round, batch (一批 / batch) opt-in at most 3, persist until 一張 / one, most-unblock selection, agent finds facts, no action before confirmation |
 | Stance | None | Opening, appraisal, silent calibration, wording contract on questions and recommended answers, skip as deferred, intensity as cadence only, premortem, decision-log close |
 | Default cadence | Whole frontier per round | One card per round. Batch (一批 / batch) opt-in at most 3; persists until 一張 / one |
 | Intensity | Relentless wording allowed | Changes cadence only. Raising intensity does not restore competence-threatening wording |
@@ -98,7 +98,7 @@ Installing this skill does not replace original `grilling`.
 
 ## How it works
 
-**Mechanics** are the grilling design tree. They are not paper-derived. Cadence and card shape differ from original grilling: default one card per round (`### Q` heading plus list, `➡️`), batch at most 3 of the most-unblocking frontier, facts found without dumping leftover frontier, and no action until the user confirms shared understanding.
+**Mechanics** are the grilling design tree. They are not paper-derived. Cadence and card shape differ from original grilling: default one card per round (host question tool with options, markdown `### Q` list fallback, `➡️`), batch at most 3 of the most-unblocking frontier, facts found without dumping leftover frontier, and no action until the user confirms shared understanding.
 
 **Stance** is the overlay in `SKILL.md` after Mechanics: how the agent opens, appraises stakes, calibrates silently, words questions and recommended answers (meanings, paraphrases, and equivalents in the user's language), treats skip, changes intensity, runs a premortem, and closes. Stance does not drop recommended answers and does not shrink tree coverage.
 

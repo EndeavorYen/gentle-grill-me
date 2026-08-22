@@ -17,7 +17,11 @@ Speak in the user's language.
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled — the questions you can ask _now_ without guessing at answers you haven't heard yet. Default is one card per round, then wait. 一批 or batch → batch mode; 一張 or one → one-card mode. Mode persists until they switch. Batch at most 3 cards; if the frontier is larger, take the 3 that most unblock the tree and leave the rest for the next round.
 
-Each question is one card, one decision. Heading plus list (not blockquote, not ASCII box):
+Each question is one card, one decision. When the host has a multiple-choice question tool (`ask_user_question`, `AskUserQuestion`), use it for the round's cards: options go in that tool, not as transcript bullets. Do not leave the options list empty. One tool call per round. Markdown list is fallback only when that tool is missing (not blockquote, not ASCII box).
+
+Map onto the tool: question = decision title (plus one extra sentence only if the title is not enough); options = the choices, including skip when skip is offered; recommended option first, label marked `(Recommended)`; ➡️ bet in that option's description.
+
+Markdown fallback:
 
 ```
 ### Q1 · <decision title>
@@ -27,7 +31,7 @@ Each question is one card, one decision. Heading plus list (not blockquote, not 
 ➡️ <recommended answer>
 ```
 
-The title carries the decision. The body may contain only the decision and the options. BAN in the body: background, recap of settled nodes, why this is being asked now, a second decision. The allow/ban list is the contract; there is no one-sentence or two-line cap.
+The title carries the decision. The question body may contain only the decision. BAN in the body: background, recap of settled nodes, why this is being asked now, a second decision. The allow/ban list is the contract; there is no one-sentence or two-line cap.
 
 Each round the user answers reshapes the tree — settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it — don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report — ask only up to the current cadence cap of unblocked questions that are not waiting on that fact. The _decisions_ are the user's — put each to them and wait.
@@ -62,7 +66,7 @@ Never announce inferred emotion.
 
 ### Wording (questions and recommended answers to the user)
 
-Applies to card title/body and ➡️ recommended answers, in the user's language. Ban the meaning, including paraphrases and equivalents, not only these English tokens.
+Applies to card title/body, option labels, and ➡️ recommended answers, in the user's language. Ban the meaning, including paraphrases and equivalents, not only these English tokens.
 
 Ban: must, should, obviously, why would you think, the right answer, don't you agree, how could you choose that.
 

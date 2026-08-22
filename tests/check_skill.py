@@ -97,6 +97,26 @@ def main() -> int:
     check("mechanics: card heading ### Q", "### Q" in body)
     check("mechanics: ➡️", "➡️" in body)
     check(
+        "mechanics: host question tool ask_user_question / AskUserQuestion",
+        "ask_user_question" in body and "AskUserQuestion" in body,
+    )
+    check(
+        "mechanics: options go in the question tool not transcript bullets",
+        "options go in that tool" in body_l and "transcript bullets" in body_l,
+    )
+    check(
+        "mechanics: do not leave the options list empty",
+        "do not leave the options list empty" in body_l,
+    )
+    check(
+        "mechanics: markdown list is fallback only",
+        "fallback only" in body_l and "### Q" in body,
+    )
+    check(
+        "mechanics: recommended option first marked (Recommended)",
+        "recommended option first" in body_l and "(Recommended)" in body,
+    )
+    check(
         "mechanics: default one card/one question",
         "default" in body_l
         and ("one card" in body_l or "one question" in body_l),
