@@ -88,7 +88,7 @@ A skip visits the node and leaves it open; do not re-ask it as unanswered. Empty
 
 ### Conflicts
 
-When a later answer contradicts a settled node, put that contradiction on this round's frontier as one question: keep the earlier node, replace it with the later answer, or split (earlier stays the goal, later is execution). Do not silently keep both as if they agreed. Record the supersession in the close log.
+When a later answer contradicts a settled node, put that contradiction on this round's frontier as one question: keep the earlier node, replace it with the later answer, or split (earlier stays the goal, later is execution). Do not silently keep both as if they agreed. Append the supersession to `.gentle-grill/grill-log.jsonl` before the next question.
 
 ### Intensity
 
@@ -100,6 +100,12 @@ After the subject and success criteria are clear, run one premortem round before
 
 Past tense: assume the plan as it now exists has already failed. The subject of failure is the plan, not the person. Offer 2–3 most likely causes as recommended answers. The user may pick one primary cause; unranked listed causes are not selected and are not missed.
 
+### Persist
+
+After every settle, skip, or supersede, append one JSONL record to `.gentle-grill/grill-log.jsonl` with `python3 scripts/grill-log.py append` **before asking the next question**. The file is append-only; do not rewrite it. If append fails, do not ask the next question.
+
+Minimum fields: id, question, options, chosen, rejected, status (`settled` | `skipped` | `superseded`), supersedes (if any).
+
 ### Close
 
-When the frontier is empty, close with a decision log: settled, deferred, open assumptions, superseded nodes, bets the user rejected. Ask for confirmation. Not a scorecard. Not pep talk.
+When the frontier is empty, close with a decision log rendered from `.gentle-grill/grill-log.jsonl` via `python3 scripts/grill-log.py render`: settled, deferred, open assumptions, superseded nodes, bets the user rejected. Do not invent the close log from chat memory. Ask for confirmation. Not a scorecard. Not pep talk. After the user confirms the close log, this session must not implement. Implementation is a new session that reads the file first.

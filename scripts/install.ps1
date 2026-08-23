@@ -9,8 +9,12 @@ $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $SkillSrc = Join-Path $RepoRoot 'SKILL.md'
 $ReadmeSrc = Join-Path $RepoRoot 'README.md'
+$HelperSrc = Join-Path $RepoRoot 'scripts\grill-log.py'
 if (-not (Test-Path -LiteralPath $SkillSrc)) {
     throw "SKILL.md not found at $SkillSrc"
+}
+if (-not (Test-Path -LiteralPath $HelperSrc)) {
+    throw "scripts/grill-log.py not found at $HelperSrc"
 }
 
 function Get-UserHome {
@@ -37,6 +41,11 @@ function Install-To([string]$Name) {
     Copy-Item -Force -LiteralPath $SkillSrc -Destination (Join-Path $dest 'SKILL.md')
     if (Test-Path -LiteralPath $ReadmeSrc) {
         Copy-Item -Force -LiteralPath $ReadmeSrc -Destination (Join-Path $dest 'README.md')
+    }
+    if (Test-Path -LiteralPath $HelperSrc) {
+        $scriptsDest = Join-Path $dest 'scripts'
+        New-Item -ItemType Directory -Force -Path $scriptsDest | Out-Null
+        Copy-Item -Force -LiteralPath $HelperSrc -Destination (Join-Path $scriptsDest 'grill-log.py')
     }
     Write-Output "Installed $Name -> $dest"
 }

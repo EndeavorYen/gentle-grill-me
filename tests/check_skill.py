@@ -185,6 +185,25 @@ def main() -> int:
     )
     check("close is a decision log", "decision log" in body_l)
     check(
+        "skill requires append-before-next-question",
+        "grill-log.jsonl" in body_l
+        and "append" in body_l
+        and "before asking the next question" in body_l
+        and "if append fails, do not ask the next question" in body_l,
+    )
+    check(
+        "skill forbids same-session implement after close confirm",
+        "this session must not implement" in body_l
+        and "new session" in body_l
+        and "reads the file first" in body_l,
+    )
+    check(
+        "close log is rendered from the file",
+        "scripts/grill-log.py" in body
+        and "render" in body_l
+        and "do not invent the close log from chat memory" in body_l,
+    )
+    check(
         "conflicts: later answer vs settled node",
         "contradict" in body_l and "settled" in body_l,
     )
@@ -274,6 +293,48 @@ def main() -> int:
         "install.sh platforms grok claude cursor",
         "grok" in sh and "claude" in sh and "cursor" in sh,
     )
+    check("scripts/grill-log.py exists", (ROOT / "scripts" / "grill-log.py").is_file())
+    check(
+        "install.ps1 copies grill-log.py",
+        "grill-log.py" in ps1 and "scripts" in ps1,
+    )
+    check(
+        "install.sh copies grill-log.py",
+        "grill-log.py" in sh and "scripts" in sh,
+    )
+    banned = ("aal", "carrera", "ho-forge")
+    public = f"{skill or ''}\n{readme_text}"
+    public_l = public.lower()
+    check(
+        "public text has no internal codenames",
+        all(token not in public_l for token in banned),
+    )
+
+    sh_path = ROOT / "scripts" / "install.sh"
+    if os.name != "nt" and sh_path.is_file():
+        with tempfile.TemporaryDirectory() as tmp:
+            env = os.environ.copy()
+            env["HOME"] = tmp
+            env["GROK_HOME"] = str(Path(tmp) / "fake-grok-home")
+            proc = subprocess.run(
+                ["bash", str(sh_path), "grok"],
+                cwd=str(ROOT),
+                env=env,
+                capture_output=True,
+                text=True,
+            )
+            dest = (
+                Path(tmp)
+                / "fake-grok-home"
+                / "skills"
+                / "gentle-grill-me"
+                / "scripts"
+                / "grill-log.py"
+            )
+            check(
+                "install.sh grok copies grill-log.py",
+                proc.returncode == 0 and dest.is_file(),
+            )
 
     citation_checks = [
         ("README citation: Brehm 1966", ("Brehm", "1966")),

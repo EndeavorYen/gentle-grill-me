@@ -13,8 +13,13 @@ esac
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 skill_src="$repo_root/SKILL.md"
 readme_src="$repo_root/README.md"
+helper_src="$repo_root/scripts/grill-log.py"
 if [[ ! -f "$skill_src" ]]; then
   echo "SKILL.md not found at $skill_src" >&2
+  exit 1
+fi
+if [[ ! -f "$helper_src" ]]; then
+  echo "scripts/grill-log.py not found at $helper_src" >&2
   exit 1
 fi
 
@@ -43,6 +48,10 @@ install_to() {
   cp "$skill_src" "$dest/SKILL.md"
   if [[ -f "$readme_src" ]]; then
     cp "$readme_src" "$dest/README.md"
+  fi
+  if [[ -f "$helper_src" ]]; then
+    mkdir -p "$dest/scripts"
+    cp "$helper_src" "$dest/scripts/grill-log.py"
   fi
   echo "Installed $name -> $dest"
 }

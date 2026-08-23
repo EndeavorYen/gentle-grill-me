@@ -3,3 +3,7 @@
 
 # Local Grok config and workflows
 .grok/
+
+# Per-session grill decision log
+.gentle-grill/
+
