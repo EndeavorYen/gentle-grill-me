@@ -64,11 +64,11 @@ Skip is allowed. Skip parks the node; it does not delete it.
 | Default cadence | Whole frontier per round | One card per round. Batch (一批 / batch) opt-in at most 3; persists until 一張 / one |
 | Intensity | Relentless wording allowed | Changes cadence only. Raising intensity does not restore competence-threatening wording |
 | Skip | Unspecified | Explicitly deferred; stays on the frontier; listed as an open assumption at close; do not drop skipped nodes to close |
-| Close | Empty frontier, then confirmation | Decision log (settled, deferred, open assumptions, rejected bets), then confirmation |
+| Close | Empty frontier, then confirmation | Decision log rendered from `.gentle-grill/grill-log.jsonl` (settled, deferred, open assumptions, rejected bets), then confirmation. This session does not implement. |
 
 ## Install
 
-One `SKILL.md` in this repository is the only protocol source. Install copies that file; it does not create a second master.
+One `SKILL.md` in this repository is the only protocol source. Install copies that file and `scripts/grill-log.py`; it does not create a second master.
 
 | Platform | Skill root |
 | --- | --- |
@@ -90,7 +90,7 @@ One `SKILL.md` in this repository is the only protocol source. Install copies th
 ./scripts/install.sh all
 ```
 
-Manual copy (same result): create the skill-root directory for that platform and copy `SKILL.md` (and optionally `README.md`) into it.
+Manual copy (same result): create the skill-root directory for that platform and copy `SKILL.md` plus `scripts/grill-log.py` (and optionally `README.md`) into it.
 
 If `GROK_HOME` is set, the grok target is `$GROK_HOME/skills/gentle-grill-me/` instead of `~/.grok/skills/gentle-grill-me/`.
 
