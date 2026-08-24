@@ -84,8 +84,6 @@ def main() -> int:
         bool(re.search(r"(?m)^name:\s*gentle-grill-me\s*$", fm)),
     )
     check("description contains gentle grill me", "gentle grill me" in fm_l)
-    check("description contains 溫柔 grill", "溫柔 grill" in fm)
-    check("description contains 幫我溫柔地壓力測試", "幫我溫柔地壓力測試" in fm)
     check("description contains /gentle-grill-me", "/gentle-grill-me" in fm)
     check(
         "description does not take over bare grill me",
@@ -125,7 +123,8 @@ def main() -> int:
         "mechanics: batch at most 3",
         "batch" in body_l and "at most 3" in body_l,
     )
-    check("mechanics: 一批 or batch", "一批" in body and "batch" in body_l)
+    check("mechanics: batch mode", "batch" in body_l and "batch mode" in body_l)
+    check("mechanics: one-card mode", "one-card mode" in body_l)
     check("mechanics: persist", "persist" in body_l)
     check("mechanics: most unblock", "most unblock" in body_l)
     check(
@@ -309,6 +308,9 @@ def main() -> int:
         "public text has no internal codenames",
         all(token not in public_l for token in banned),
     )
+    han = re.compile(r"[\u4e00-\u9fff]")
+    check("SKILL.md has no Han characters", not han.search(skill or ""))
+    check("README.md has no Han characters", not han.search(readme_text))
 
     sh_path = ROOT / "scripts" / "install.sh"
     if os.name != "nt" and sh_path.is_file():

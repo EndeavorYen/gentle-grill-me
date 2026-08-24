@@ -13,8 +13,6 @@ The stance is designed from **psychology** — psychological reactance, autonomy
 Say one of:
 
 - `gentle grill me`
-- `溫柔 grill`
-- `幫我溫柔地壓力測試`
 - `/gentle-grill-me`
 
 Then install from a clone:
@@ -57,11 +55,11 @@ Skip is allowed. Skip parks the node; it does not delete it.
 | | Original grilling | gentle-grill-me |
 | --- | --- | --- |
 | Product | `grilling` / `grill-me` | `gentle-grill-me` |
-| Triggers | Grill-family phrases, including bare `grill me` | `gentle grill me`, `溫柔 grill`, `幫我溫柔地壓力測試`, `/gentle-grill-me` only |
+| Triggers | Grill-family phrases, including bare `grill me` | `gentle grill me` and `/gentle-grill-me` only |
 | Coexistence | Unchanged | Coexists; does not steal bare `grill me` |
-| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Design tree, host question card with options (markdown ### Q list fallback), ➡️, default one card per round, batch (一批 / batch) opt-in at most 3, persist until 一張 / one, most-unblock selection, agent finds facts, no action before confirmation |
+| Mechanics | Design tree, frontier rounds, ❓ / ➡️ recommended answers, agent finds facts, no action before confirmation | Design tree, host question card with options (markdown ### Q list fallback), ➡️, default one card per round, batch opt-in at most 3, persist until one, most-unblock selection, agent finds facts, no action before confirmation |
 | Stance | None | Opening, appraisal, silent calibration, wording contract on questions and recommended answers, skip as deferred, intensity as cadence only, premortem, decision-log close |
-| Default cadence | Whole frontier per round | One card per round. Batch (一批 / batch) opt-in at most 3; persists until 一張 / one |
+| Default cadence | Whole frontier per round | One card per round. Batch opt-in at most 3; persists until one |
 | Intensity | Relentless wording allowed | Changes cadence only. Raising intensity does not restore competence-threatening wording |
 | Skip | Unspecified | Explicitly deferred; stays on the frontier; listed as an open assumption at close; do not drop skipped nodes to close |
 | Close | Empty frontier, then confirmation | Decision log rendered from `.gentle-grill/grill-log.jsonl` (settled, deferred, open assumptions, rejected bets), then confirmation. This session does not implement. |

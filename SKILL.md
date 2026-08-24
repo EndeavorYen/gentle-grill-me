@@ -3,9 +3,8 @@ name: gentle-grill-me
 description: >
   Pressure-test a plan, decision, or idea with the user using the grilling
   design-tree protocol, without competence-threatening wording. Use when the
-  user says gentle grill me, 溫柔 grill, 幫我溫柔地壓力測試, or runs
-  /gentle-grill-me. Do not use when the user only says grill me or wants
-  original relentless grilling.
+  user says gentle grill me or runs /gentle-grill-me. Do not use when the
+  user only says grill me or wants original relentless grilling.
 ---
 
 Research mapping lives in README.md.
@@ -15,7 +14,7 @@ Speak in the user's language.
 ## Mechanics
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled — the questions you can ask _now_ without guessing at answers you haven't heard yet. Default is one card per round, then wait. 一批 or batch → batch mode; 一張 or one → one-card mode. Mode persists until they switch. Batch at most 3 cards; if the frontier is larger, take the 3 that most unblock the tree and leave the rest for the next round.
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled — the questions you can ask _now_ without guessing at answers you haven't heard yet. Default is one card per round, then wait. batch → batch mode; one → one-card mode. Mode persists until they switch. Batch at most 3 cards; if the frontier is larger, take the 3 that most unblock the tree and leave the rest for the next round.
 
 Each question is one card, one decision. When the host has a multiple-choice question tool (`ask_user_question`, `AskUserQuestion`), use it for the round's cards: options go in that tool, not as transcript bullets. Do not leave the options list empty. One tool call per round. Markdown list is fallback only when that tool is missing (not blockquote, not ASCII box).
 
