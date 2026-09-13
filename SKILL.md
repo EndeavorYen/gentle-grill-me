@@ -106,8 +106,8 @@ Past tense: assume the plan as it now exists has already failed. The subject of 
 
 After every settle, skip, or supersede, append one JSONL record to `.gentle-grill/grill-log.jsonl` with `python3 scripts/grill-log.py append` **before asking the next question**. The file is append-only; do not rewrite it. If append fails, do not ask the next question.
 
-Minimum fields: id, question, options, chosen, rejected, status (`settled` | `skipped` | `superseded`), supersedes (if any). Settled records also include kind (`詞` | `決策`).
+Minimum fields: id, question, options, chosen, rejected, status (`settled` | `skipped` | `superseded`), supersedes (if any). Settled records also include kind (`term` | `decision`).
 
 ### Close
 
-When the frontier is empty, close with a decision log rendered from `.gentle-grill/grill-log.jsonl` via `python3 scripts/grill-log.py render`: settled (each item labeled **詞** or **決策**), deferred, open assumptions, superseded nodes, bets the user rejected. Do not invent the close log from chat memory. Ask for confirmation. Not a scorecard. Not pep talk. After the user confirms the close log, this session must not implement. Implementation is a new session that reads the file first.
+When the frontier is empty, close with a decision log rendered from `.gentle-grill/grill-log.jsonl` via `python3 scripts/grill-log.py render`: settled (each item labeled **term** or **decision**), deferred, open assumptions, superseded nodes, bets the user rejected. Do not invent the close log from chat memory. Ask for confirmation. Not a scorecard. Not pep talk. After the user confirms the close log, this session must not implement. Implementation is a new session that reads the file first.

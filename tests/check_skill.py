@@ -206,11 +206,11 @@ def main() -> int:
         "term conflict is one frontier card",
         "glossary" in body_l
         and "one card" in body_l
-        and ("term" in body_l or "詞" in body),
+        and "term" in body_l,
     )
     check(
-        "close log labels 詞 vs 決策",
-        "詞" in body and "決策" in body and "settled" in body_l,
+        "close log labels term vs decision",
+        "term" in body_l and "decision" in body_l and "settled" in body_l,
     )
     check(
         "conflicts: later answer vs settled node",

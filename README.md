@@ -62,7 +62,7 @@ Skip is allowed. Skip parks the node; it does not delete it.
 | Default cadence | Whole frontier per round | One card per round. Batch opt-in at most 3; persists until one |
 | Intensity | Relentless wording allowed | Changes cadence only. Raising intensity does not restore competence-threatening wording |
 | Skip | Unspecified | Explicitly deferred; stays on the frontier; listed as an open assumption at close; do not drop skipped nodes to close |
-| Close | Empty frontier, then confirmation | Decision log rendered from `.gentle-grill/grill-log.jsonl` (settled labeled 詞 vs 決策, deferred, open assumptions, rejected bets), then confirmation. This session does not implement. |
+| Close | Empty frontier, then confirmation | Decision log rendered from `.gentle-grill/grill-log.jsonl` (settled labeled term vs decision, deferred, open assumptions, rejected bets), then confirmation. This session does not implement. |
 
 ## Install
 
