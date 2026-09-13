@@ -203,6 +203,16 @@ def main() -> int:
         and "do not invent the close log from chat memory" in body_l,
     )
     check(
+        "term conflict is one frontier card",
+        "glossary" in body_l
+        and "one card" in body_l
+        and "term" in body_l,
+    )
+    check(
+        "close log labels term vs decision",
+        "term" in body_l and "decision" in body_l and "settled" in body_l,
+    )
+    check(
         "conflicts: later answer vs settled node",
         "contradict" in body_l and "settled" in body_l,
     )

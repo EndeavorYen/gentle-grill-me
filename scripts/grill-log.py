@@ -88,11 +88,13 @@ def render_records(records: list[dict]) -> str:
         else:
             for rec in items:
                 ident = rec.get("id", "")
+                kind = rec.get("kind")
                 question = rec.get("question", "")
                 chosen = _join(rec.get("chosen"))
                 rejected = _join(rec.get("rejected"))
                 supersedes = _join(rec.get("supersedes"))
-                head = f"- [{ident}] {question}"
+                tag = f"[{kind}] " if kind else ""
+                head = f"- [{ident}] {tag}{question}"
                 if chosen:
                     head += f" → {chosen}"
                 lines.append(head)
