@@ -34,6 +34,9 @@ The title carries the decision. The question body may contain only the decision.
 
 Each round the user answers reshapes the tree — settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it — don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report — ask only up to the current cadence cap of unblocked questions that are not waiting on that fact. The _decisions_ are the user's — put each to them and wait.
+
+If the user uses a **term** that conflicts with an existing glossary or design definition, put that conflict on the frontier as **one card**: keep the old term, change the definition, or add an alias. Fuzzy or overloaded words: propose one canonical term before walking downstream branches. Glossary and ADR files stay the caller's job (wf-ex Grill persist). Each settle still appends to `.gentle-grill/grill-log.jsonl` (Persist).
+
 The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
 
 ## Stance
@@ -103,8 +106,8 @@ Past tense: assume the plan as it now exists has already failed. The subject of 
 
 After every settle, skip, or supersede, append one JSONL record to `.gentle-grill/grill-log.jsonl` with `python3 scripts/grill-log.py append` **before asking the next question**. The file is append-only; do not rewrite it. If append fails, do not ask the next question.
 
-Minimum fields: id, question, options, chosen, rejected, status (`settled` | `skipped` | `superseded`), supersedes (if any).
+Minimum fields: id, question, options, chosen, rejected, status (`settled` | `skipped` | `superseded`), supersedes (if any). Settled records also include kind (`詞` | `決策`).
 
 ### Close
 
-When the frontier is empty, close with a decision log rendered from `.gentle-grill/grill-log.jsonl` via `python3 scripts/grill-log.py render`: settled, deferred, open assumptions, superseded nodes, bets the user rejected. Do not invent the close log from chat memory. Ask for confirmation. Not a scorecard. Not pep talk. After the user confirms the close log, this session must not implement. Implementation is a new session that reads the file first.
+When the frontier is empty, close with a decision log rendered from `.gentle-grill/grill-log.jsonl` via `python3 scripts/grill-log.py render`: settled (each item labeled **詞** or **決策**), deferred, open assumptions, superseded nodes, bets the user rejected. Do not invent the close log from chat memory. Ask for confirmation. Not a scorecard. Not pep talk. After the user confirms the close log, this session must not implement. Implementation is a new session that reads the file first.
