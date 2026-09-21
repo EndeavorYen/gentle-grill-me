@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('grok', 'claude', 'cursor', 'all')]
+    [ValidateSet('grok', 'claude', 'cursor', 'gemini', 'antigravity', 'antigravity-cli', 'all')]
     [string]$Platform = 'all'
 )
 
@@ -23,6 +23,9 @@ function Get-UserHome {
 }
 
 function Get-Dest([string]$Name) {
+    if ($env:UPDATE_HARNESS_SKILLS) {
+        return (Join-Path $env:UPDATE_HARNESS_SKILLS 'gentle-grill-me')
+    }
     $homeDir = Get-UserHome
     switch ($Name) {
         'grok' {
@@ -31,6 +34,9 @@ function Get-Dest([string]$Name) {
         }
         'claude' { return (Join-Path $homeDir '.claude\skills\gentle-grill-me') }
         'cursor' { return (Join-Path $homeDir '.cursor\skills\gentle-grill-me') }
+        'gemini' { return (Join-Path $homeDir '.gemini\config\skills\gentle-grill-me') }
+        'antigravity' { return (Join-Path $homeDir '.gemini\antigravity\skills\gentle-grill-me') }
+        'antigravity-cli' { return (Join-Path $homeDir '.gemini\antigravity-cli\skills\gentle-grill-me') }
         default { throw "Unknown platform $Name" }
     }
 }
@@ -50,5 +56,5 @@ function Install-To([string]$Name) {
     Write-Output "Installed $Name -> $dest"
 }
 
-$targets = if ($Platform -eq 'all') { @('grok', 'claude', 'cursor') } else { @($Platform) }
+$targets = if ($Platform -eq 'all') { @('grok', 'claude', 'cursor', 'gemini', 'antigravity', 'antigravity-cli') } else { @($Platform) }
 foreach ($t in $targets) { Install-To $t }

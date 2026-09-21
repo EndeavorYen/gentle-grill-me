@@ -3,9 +3,9 @@ set -euo pipefail
 
 platform="${1:-all}"
 case "$platform" in
-  grok|claude|cursor|all) ;;
+  grok|claude|cursor|gemini|antigravity|antigravity-cli|all) ;;
   *)
-    echo "usage: $0 [grok|claude|cursor|all]" >&2
+    echo "usage: $0 [grok|claude|cursor|gemini|antigravity|antigravity-cli|all]" >&2
     exit 2
     ;;
 esac
@@ -25,6 +25,10 @@ fi
 
 dest_for() {
   local name="$1"
+  if [[ -n "${UPDATE_HARNESS_SKILLS:-}" ]]; then
+    printf '%s\n' "$UPDATE_HARNESS_SKILLS/gentle-grill-me"
+    return
+  fi
   local home="${HOME}"
   case "$name" in
     grok)
@@ -33,6 +37,9 @@ dest_for() {
       ;;
     claude) printf '%s\n' "$home/.claude/skills/gentle-grill-me" ;;
     cursor) printf '%s\n' "$home/.cursor/skills/gentle-grill-me" ;;
+    gemini) printf '%s\n' "$home/.gemini/config/skills/gentle-grill-me" ;;
+    antigravity) printf '%s\n' "$home/.gemini/antigravity/skills/gentle-grill-me" ;;
+    antigravity-cli) printf '%s\n' "$home/.gemini/antigravity-cli/skills/gentle-grill-me" ;;
     *)
       echo "Unknown platform $name" >&2
       return 1
@@ -57,7 +64,7 @@ install_to() {
 }
 
 if [[ "$platform" == "all" ]]; then
-  for t in grok claude cursor; do
+  for t in grok claude cursor gemini antigravity antigravity-cli; do
     install_to "$t"
   done
 else
